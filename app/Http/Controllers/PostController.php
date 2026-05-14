@@ -7,31 +7,61 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    function index() {
-        $data= Post::Paginate(10);
-
-        return view('post.index',['posts' => $data ,"pageTitle" => "blog"]);
-    } 
-
-    function show($id){
-        $post= Post::findOrFail($id);
-
-        return view('post.show',['post' => $post , "pageTitle" => $post->title]);
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $data =Post::paginate(10);
+        return view('post.index',['posts' => $data,"pageTitle"=>"Blog"]);
     }
 
-    function create(){
-        // post::create([
-        //     'title' => 'title......dsttjsfg',
-        //     'body' => 'body ......fsgjsfjs',
-        //     'author' => 'taieb',
-        //     'published' => true
-        // ]);
-        Post::factory(10)->create();
-        return redirect('/blog');
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('post.create',["pageTitle"=>"Blog -Create New Post"]);
     }
-    function delete(){
-       Post::destroy(3);
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+         // @TODO: this will be completeed in the section
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $post = Post::find($id);
+        return view('post.show',['post'=>$post,"pageTitle"=>$post->title]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        return view('post.edit',["pageTitle"=>"Edit post"]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //@todo this will be completeed in the section
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //@todo this will be completeed in the section
     }
 }
-
- 
