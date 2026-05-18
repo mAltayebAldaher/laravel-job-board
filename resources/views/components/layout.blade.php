@@ -30,6 +30,7 @@
             <x-nav-link href="/" :ac="request()->is('/')">Home</x-nav-link>   
             <x-nav-link href="about" :ac="request()->is('about')">about</x-nav-link>
             <x-nav-link href="contact" :ac="request()->is('contact')">contact</x-nav-link>
+            <x-nav-link href="/blog" :ac="request()->is('blog')">blog</x-nav-link>
             </div>
           </div>
         </div>

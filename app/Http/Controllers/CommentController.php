@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Requests\CommnetRequest;
 
 class CommentController extends Controller
 {
@@ -12,9 +13,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments=Comment::cursorPaginate(10);
-
-        return view('comment.index',["comments"=>$comments , "pageTitle"=>"comments"]);
+        return redirect('/blog');
     }
 
     /**
@@ -22,24 +21,22 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //function create(){
-        // Comment::create([
-        //     'author'=>'taieb',
-        //     'content'=>'This is test comment',
-        //     'post_id'=>'3'
-        // ]);
-        // Comment::factory(10)->create();
-        // return redirect('/comment');    
-        // }
-        return view('comment.create',["pageTitle"=>"Blog -Create New Comment"]);
+        return redirect('/blog');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CommnetRequest $request)
     {
-        //@TODO
+        $comment = new Comment();
+        $comment->author = $request->input('author');
+        $comment->content = $request->input('content');
+        $comment->post_id = $request->input('post_id');
+
+        $comment->save();
+
+        return redirect('/blog/'. $request->input('post_id'))->with('success','Post created successfully!');
     }
 
     /**
@@ -47,8 +44,7 @@ class CommentController extends Controller
      */
     public function show(string $id)
     {
-        $comment = Comment::with('post')->find($id);
-        return view('comment.show',['comment'=>$comment,"pageTitle"=>"comment -Show Comment"]);
+      return redirect('/blog');
     }
 
     /**
@@ -56,7 +52,7 @@ class CommentController extends Controller
      */
     public function edit(string $id)
     {
-       return view('comment.edit',["pageTitle"=>"Edit Comment"]);
+    //    @TODO
     }
 
     /**
